@@ -17,7 +17,7 @@ class OrderController extends Controller
 
         $available_stock = Product::where('id', $request['product_id'])->get('available_stock');
         $available_stock = $available_stock[0]->available_stock;
-        if($request['quantity'] <= $available_stock){
+        if($request['quantity'] <= $available_stock && $available_stock !== 0){
             $ordered = Product_order::create([
                 'user_id'       => Auth::id(),
                 'product_id'    => $request['product_id'],
@@ -26,7 +26,7 @@ class OrderController extends Controller
             if($ordered){
                 $remaining_stock = ($available_stock - $request['quantity']);
                 Product::where('id', $request['product_id'])->update(['available_stock' => $remaining_stock]);
-                return response()->json(['message' => "“You have successfully ordered this product."], 201); 
+                return response()->json(['message' => "You have successfully ordered this product."], 201); 
             }
         }
         else{

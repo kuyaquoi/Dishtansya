@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User; 
 use Illuminate\Support\Facades\Auth; 
 use Validator;
+use App\Jobs\SendEmail;
 class UserController extends Controller
 {
 public $successStatus = 200;
@@ -56,6 +57,7 @@ public $successStatus = 200;
             $success['name'] =  $user->name;
             $response['message'] = "User successfully registered";
             $code = 201;
+            //SendEmail::dispatch($details)->onQueue('processing');
         } else {
             // email already taken
             $response['message'] = "Email already taken";

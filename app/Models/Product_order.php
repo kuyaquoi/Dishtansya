@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 
-class Order extends Model
+class Product_order extends Model
 {
     use HasApiTokens, HasFactory, Notifiable;
 
